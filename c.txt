@@ -1,0 +1,147 @@
+
+Usuario (AbstractUser)
+├── Administrador (OneToOne) yes
+├── Personal (OneToOne) yes
+├── Propietario (OneToOne) yes
+├── Inquilino (OneToOne)
+└── Residente (OneToOne relacionado)
+
+python manage.py show_urls
+
+
+pip install django-cors-headers
+pip install djangorestframework-simplejwt
+pip install psycopg2-binary
+pip install python-decouple
+pip install django-filter
+pip install whitenoise
+
+django-admin startproject si1
+cd si1
+python manage.py startapp app
+
+
+
+python manage.py createsuperuser
+
+
+# mmodficacion
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    # Tiempo de vida del token de acceso: 30 minutos
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+
+    # Tiempo de vida del token de refresh: 1 día
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+
+    # Si se rota el refresh token, generar uno nuevo y descartar el anterior
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+
+    # Cabecera esperada: "Authorization: Bearer <token>"
+    'AUTH_HEADER_TYPES': ('Bearer',),
+
+    # Solo se aceptan AccessTokens para autenticación
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+}
+
+python -m venv venv
+venv\Scripts\Activate
+
+
+lNSTRUCCIONES:
+1.leer models.ts donde se encunta als interface,
+
+
+# settings.py
+REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "app.exceptions.custom_exception_handler"
+}
+
+#Estandariza siempre { "error": { "message", "code", "fields" } }. Evita filtrar datos sensibles.
+
+#GITA
+git add .
+git commit -m "Tu mensaje de commit"
+git push origin main
+
+
+
+venv\Scripts\Activate
+cd si1
+python manage.py runserver
+
+ python manage.py makemigrations
+python manage.py migrate
+#branch
+git branch
+
+
+git add .
+git commit -m "mensaje"
+git push -u origin main 
+
+https://e153c382858a.ngrok-free.app 
+
+#freeze 
+pip freeze > requirements.txt 
+dj-database-url==2.1.0
+
+#only valida for the app 
+cd si1
+python manage.py runserver 
+
+
+
+
+
+from rest_framework import permissions
+
+class IsAdministrador(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user and request.user.is_superuser
+
+class IsCliente(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user and request.user.rol.nombre == 'Cliente'
+
+class IsPersonal(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user and request.user.rol.nombre == 'Personal'        
+
+
+"username": "admin","password":"ZXCVBNM,"
+
+[System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes((Get-Content -Path "proyecto2-2025-cef6c7dd9580.json" -Raw))) | Set-Content -Path "proyecto2-base64.txt" -Encoding UTF8
+
+
+
+
+DB_NAME=db_si2p1
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=localhost
+DB_PORT=5432
+
+
+DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1,192.168.1.50,tercerproyectosi1react.onrender.comdr
+
+#filter
+pip install django-filter
+pip install whitenoise
+
+admin 
+ange2024
+
+
+def clean(self):
+        # Verificar si el tipo de pago es "suscripción" y si el usuario ya tiene una suscripción activa
+        if self.tipo_pago == 'suscripcion' and self.usuario.cliente.suscripcion_actual:
+            suscripcion_actual = self.usuario.cliente.suscripcion_actual
+            if suscripcion_actual.fecha_fin_mem and suscripcion_actual.fecha_fin_mem > datetime.date.today():
+                raise ValidationError("Este usuario ya tiene una suscripción activa.")
+    
+    def save(self, *args, **kwargs):
+        self.clean()  # Llamamos a la validación
+        super(Pago, self).save(*args, **kwargs)
